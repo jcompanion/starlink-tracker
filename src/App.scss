@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+$Loader-color: #20C20E;
+$Loader-size: 100vh;
+$Loader-offset: 2rem;
+$Loader-timing: ease-in-out;
+$Font-green: #20C20E;
+
+
+.Loader {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0 auto;
+  width: 100%;
+  max-width: $Loader-size;
+  margin-top: $Loader-size/2;
+  margin-bottom: $Loader-size/2;
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    animation-duration: 1.8s;
+    animation-iteration-count: infinite;
+    animation-timing-function: $Loader-timing;
+    filter: drop-shadow(0 0 $Loader-offset/2.25 rgba($Loader-color, 0.75));
+  }
+  &:before {
+    width: 100%;
+    padding-bottom: 100%;
+    box-shadow: inset 0 0 0 $Loader-offset $Loader-color;
+    animation-name: pulsA;
+  }
+  &:after {
+    width: calc(100% - #{$Loader-offset}*2);
+    padding-bottom: calc(100% - #{$Loader-offset}*2);
+    box-shadow: 0 0 0 0 $Loader-color;
+    animation-name: pulsB;
+  }
+}
+
+
+div.cesium-viewer-animationContainer,
+div.cesium-viewer-bottom,
+div.cesium-viewer-timelineContainer
+ {
+display: none;
+}
+
+body {
+  background-color: black;
+  font-family: 'Orbitron', sans-serif;
+  color: $Font-green;
+  animation: fadeInAnimation ease 5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+h1 {
+  position: absolute;
+  top:0;
+  padding-left: 20px;
+  z-index: 10;
+}
+
+.animated {
+  background: black;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 1)
+}
+
+.fa-satellite {
+  background: rgba(207, 207, 207, 0.062);
+  box-shadow: 0 0 0 0 $Font-green;
+  animation: pulse-green 2s infinite;
+}
+
+
+@keyframes pulse-green {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 $Font-green;
+  }
+  
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(51, 217, 178, 0);
+  }
+  
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(51, 217, 178, 0);
+  }
+}
+
+@keyframes fadeInAnimation {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
+
+
+@keyframes pulsA {
+  0% { box-shadow: inset 0 0 0 $Loader-offset $Loader-color; opacity: 1; }
+  50%, 100% { box-shadow: inset 0 0 0 0 $Loader-color; opacity: 0; }
+}
+
+@keyframes pulsB {
+  0%, 50% { box-shadow: 0 0 0 0 $Loader-color; opacity: 0; }
+  100% { box-shadow: 0 0 0 $Loader-offset $Loader-color; opacity: 1; }
+}
